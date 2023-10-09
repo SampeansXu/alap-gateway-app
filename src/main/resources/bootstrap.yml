@@ -1,0 +1,126 @@
+server:
+  port: 9000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: alap-gateway-app
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    host: 123.57.144.96
+    port: 4030
+    timeout: 5000ms
+    lettuce:
+      pool:
+        max-active: 10
+        max-wait: -1
+        max-idle: 3
+        min-idle: 0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 123.56.3.61:8848
+        namespace: 82c52fe1-1024-49d8-8aeb-0ef353552a1d
+        cluster-name: DEFAULT
+      config:
+        file-extension: yml
+        server-addr: 123.56.3.61:8848
+        namespace: 82c52fe1-1024-49d8-8aeb-0ef353552a1d
+        cluster-name: DEFAULT
+    gateway:
+      routes:
+        - id: test_163
+          order: 100
+          uri: http://www.163.com
+          predicates:
+            - Path=/test163
+        - id: demo1_tst
+          order: 110
+          uri: lb://demo1
+          predicates:
+            - Path=/demo-tst/demo1/**
+          filters:
+            - StripPrefix=2
+        - id: demo-provider
+          order: 110
+          uri: lb://demo-provider
+          predicates:
+            - Path=/demo-provider/**
+          filters:
+            - StripPrefix=1
+        - id: demo-consumer
+          order: 110
+          uri: lb://demo-consumer
+          predicates:
+            - Path=/demo-consumer/**
+          filters:
+            - StripPrefix=1
+
+
+
+hqgateway:
+  cors-config:
+    allowed-origins: "*"
+    allowed-headers: "*"
+    allowed-methods: "*"
+    allowed-Credentials: true
+    max-age: 3600
+  token-cache:
+    expire-seconds: 3600
+
+hquc:
+  ucfg:
+    app-id: 203
+    app-key: tuQXM7BnIN2TirVP
+    platform: srv
+    host-url: http://uapi.98809.com
+  http:
+    pool-size: 100
+    response-timeout: 10000
+    request-timeout: 5000
+#spring:
+#  profiles:
+#    active: dev
+#  application:
+#    name: alap-gateway-app
+#  main:
+#    allow-bean-definition-overriding: true
+#  cloud:
+#    nacos:
+#      config:
+#        file-extension: yml
+#        shared-configs:
+#          - service-discovery-${spring.profiles.active}.yml
+##          - feign-${spring.profiles.active}.yml
+#          - redis-${spring.profiles.active}-${app.zoneId:default}.yml
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: dev
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 123.56.3.61:8848
+#        namespace: 82c52fe1-1024-49d8-8aeb-0ef353552a1d
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: test
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 123.56.3.61:8848
+#        namespace: 82c52fe1-1024-49d8-8aeb-0ef353552a1d
+

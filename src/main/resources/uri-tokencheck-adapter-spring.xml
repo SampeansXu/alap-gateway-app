@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="uriTokenCheckAdapter" class="cn.huanju.edu100.alap.gateway.app.filter.adapter.URITokenCheckAdapter">
+        <!-- 忽略Token验证的 白名单URI ============================== -->
+        <property name="whiteList">
+            <list>
+                <!-- 此处配置一个Bean，对应URIRegex配置bean的id -->
+<!--                <ref bean="white_test163" />-->
+<!--                <ref bean="white_testRegex" />-->
+            </list>
+        </property>
+
+
+        <!-- 必须Token验证的 黑名单URI ============================== -->
+        <property name="blackList">
+            <list>
+            </list>
+        </property>
+    </bean>
+
+
+
+
+<!-- 开始 白名单 URIRegex正则配置 ============================== -->
+<!--    &lt;!&ndash; 测试Bean: 字串比较的方式，完全匹配 &ndash;&gt;-->
+<!--    <bean id="white_test163" class="cn.huanju.edu100.alap.gateway.app.filter.adapter.URIRegex">-->
+<!--        &lt;!&ndash; adapterType 比较方式：1-完全匹配，2-正则式 &ndash;&gt;-->
+<!--        <property name="adapterType" value="1"/>-->
+<!--        &lt;!&ndash; pathRule 比较的URI路径字符或正则 &ndash;&gt;-->
+<!--        <property name="pathRule" value="/test163"/>-->
+<!--        <property name="memo" value="测试网关是否正常"/>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash; 测试Bean: 正则式方式 &ndash;&gt;-->
+<!--    <bean id="white_testRegex" class="cn.huanju.edu100.alap.gateway.app.filter.adapter.URIRegex">-->
+<!--        &lt;!&ndash; adapterType 比较方式：1-完全匹配，2-正则式 &ndash;&gt;-->
+<!--        <property name="adapterType" value="2"/>-->
+<!--        &lt;!&ndash; pathRule 比较的URI路径字符或正则 &ndash;&gt;-->
+<!--        <property name="pathRule" value="/test/.*"/>-->
+<!--        <property name="memo" value="使用正则的实例，所有“/test/”开始的路径"/>-->
+<!--    </bean>-->
+<!-- 结束 白名单 URIRegex正则配置 ============================== -->
+
+
+
+
+<!-- 开始 黑名单 URIRegex正则配置 ============================== -->
+<!-- 结束 黑名单 URIRegex正则配置 ============================== -->
+
+
+</beans>
